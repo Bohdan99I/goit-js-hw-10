@@ -20,10 +20,7 @@ function createBreedsList(data) {
 
   new SlimSelect({
     select: '.breed-select',
-    data: result,
-    settings: {
-      allowDeselect: true
-    }
+    data: result,    
   });
 }
 
