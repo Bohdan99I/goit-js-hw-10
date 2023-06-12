@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
-
+ 
 fetchBreeds().then(createBreedsList);
 
 const selectEl = document.querySelector('.breed-select');
@@ -9,7 +9,7 @@ selectEl.addEventListener('change', selectElHandler);
 const loaderEl = document.querySelector('.loader');
 const catInfoDiv = document.querySelector('.cat-info');
 
-function createBreedsList(data) {
+function createBreedsList(data) {  
   const result = data.map(({ id, name }) => ({
     text: name,
     value: id
@@ -21,18 +21,18 @@ function createBreedsList(data) {
   new SlimSelect({
     select: '.breed-select',
     data: result,    
-  });
+  });    
 }
-
-function selectElHandler(event) {
-  loaderEl.classList.remove("visually-hidden");
-  const breedId = selectEl.value;
+ 
+function selectElHandler(event) {  
+  loaderEl.classList.remove("visually-hidden"); 
+  const breedId = selectEl.value;  
 
   if (breedId === " ") {
     setTimeout(hideLoader, 1000);
     return breedId;
   }
-
+  
   fetchCatByBreed(breedId)
     .then(data => {
       const catImgURL = data[0].url;
@@ -56,10 +56,11 @@ function selectElHandler(event) {
       Notiflix.Notify.failure(`Error: ${error}`);
     })
     .finally(() => {
-      hideLoader();
+      hideLoader();      
     });
 }
 
 function hideLoader() {
   loaderEl.classList.add("visually-hidden");
+  selectEl.classList.remove("visually-hidden");
 }
